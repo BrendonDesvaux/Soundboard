@@ -1,0 +1,16 @@
+{
+    "name": "soundboard",
+    "version": "1.0.0",
+    "description": "A soundboard application",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "author": "DonDeh",
+    "license": "ISC",
+    "dependencies": {
+        "electron": "^31.3.0",
+        "fs": "^0.0.1-security",
+        "path": "^0.12.7"
+    }
+}

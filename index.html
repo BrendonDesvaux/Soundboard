@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Soundboard</title>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div id="soundListContainer">
+            <input type="file" id="fileInput" style="display: none;">
+            <button id="chooseAndAddSound">Choisir un fichier et ajouter un son</button>
+            <input type="text" id="renameInput" class="hidden" placeholder="Enter new name">
+            <button id="renameConfirmButton" class="hidden">Confirm</button>
+        </div>
+        <div class="soundboard" id="soundboard"></div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+
+</html>
