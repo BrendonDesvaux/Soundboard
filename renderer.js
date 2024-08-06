@@ -57,7 +57,8 @@ function addSoundToList(filePath, sound, name) {
     });
 
     const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
+    deleteButton.textContent = 'X';
+    deleteButton.classList.add('delete-button');
     deleteButton.addEventListener('click', () => {
         const soundEntry = sounds.find(s => s.filePath === filePath);
         if (soundEntry && soundEntry.addButton) {
@@ -72,6 +73,7 @@ function addSoundToList(filePath, sound, name) {
 
     const editButton = document.createElement('button');
     editButton.textContent = 'Edit';
+    editButton.classList.add('edit-button');
     editButton.addEventListener('click', () => {
         renameInput.classList.remove('hidden');
         renameConfirmButton.classList.remove('hidden');
@@ -216,4 +218,95 @@ renameConfirmButton.addEventListener('click', () => {
         soundListContainer.innerHTML = '';
         loadSounds();
     }
+});
+
+// Ajouter un bouton pour activer/désactiver la réverbération
+const reverbToggleButton = document.createElement('button');
+reverbToggleButton.textContent = 'Reverb off';
+reverbToggleButton.classList.add('button');
+soundboard.appendChild(reverbToggleButton);
+
+// Ajouter un bouton pour activer/désactiver l'écho
+const echoToggleButton = document.createElement('button');
+echoToggleButton.textContent = 'Echo off';
+echoToggleButton.classList.add('button');
+soundboard.appendChild(echoToggleButton);
+
+let audioContext;
+let mediaStreamSource;
+let reverbEnabled = false;
+let echoEnabled = false;
+let reverbNode;
+let echoNode;
+let feedbackNode;
+
+reverbToggleButton.addEventListener('click', async() => {
+    if (!audioContext) {
+        audioContext = new(window.AudioContext || window.webkitAudioContext)();
+    }
+
+    if (!reverbEnabled) {
+        if (!mediaStreamSource) {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaStreamSource = audioContext.createMediaStreamSource(stream);
+        }
+
+        // Utiliser Tone.js pour la réverbération
+        reverbNode = new Tone.Reverb().toDestination();
+        const mic = new Tone.UserMedia().connect(reverbNode);
+        await mic.open();
+
+        reverbToggleButton.textContent = 'Reverb on';
+        reverbToggleButton.style.backgroundColor = 'green';
+    } else {
+        // Désactiver la réverbération
+        reverbNode.disconnect();
+        reverbNode = null;
+
+        reverbToggleButton.textContent = 'Reverb off';
+        reverbToggleButton.style.backgroundColor = '#6b6b6b';
+    }
+
+    reverbEnabled = !reverbEnabled;
+});
+
+echoToggleButton.addEventListener('click', async() => {
+    if (!audioContext) {
+        audioContext = new(window.AudioContext || window.webkitAudioContext)();
+    }
+
+    if (!echoEnabled) {
+        if (!mediaStreamSource) {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaStreamSource = audioContext.createMediaStreamSource(stream);
+        }
+
+        // Créer et configurer l'écho avec rétroaction
+        echoNode = audioContext.createDelay();
+        echoNode.delayTime.value = 0.5; // Ajustez la valeur pour l'effet d'écho
+
+        feedbackNode = audioContext.createGain();
+        feedbackNode.gain.value = 0.5; // Ajustez la valeur pour la rétroaction
+
+        // Connecter les nœuds pour créer un effet d'écho répétitif
+        mediaStreamSource.connect(echoNode);
+        echoNode.connect(feedbackNode);
+        feedbackNode.connect(echoNode);
+        feedbackNode.connect(audioContext.destination);
+
+        echoToggleButton.textContent = 'Echo on';
+        echoToggleButton.style.backgroundColor = 'green';
+    } else {
+        // Désactiver l'écho
+        mediaStreamSource.disconnect(echoNode);
+        echoNode.disconnect(feedbackNode);
+        feedbackNode.disconnect(audioContext.destination);
+        echoNode = null;
+        feedbackNode = null;
+
+        echoToggleButton.textContent = 'Echo off';
+        echoToggleButton.style.backgroundColor = '#6b6b6b';
+    }
+
+    echoEnabled = !echoEnabled;
 });

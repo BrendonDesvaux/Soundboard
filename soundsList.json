@@ -1,17 +1,17 @@
 [
   {
     "filePath": "D:\\soundboard\\sounds\\movie_1.mp3",
-    "addedToUI": true,
+    "addedToUI": false,
     "name": "Bruh"
   },
   {
     "filePath": "D:\\soundboard\\sounds\\tera-elin-victory.mp3",
-    "addedToUI": true,
+    "addedToUI": false,
     "name": "Elin victory"
   },
   {
     "filePath": "D:\\soundboard\\sounds\\tera-elin-dance.mp3",
-    "addedToUI": true,
+    "addedToUI": false,
     "name": "Elin dance"
   }
 ]
