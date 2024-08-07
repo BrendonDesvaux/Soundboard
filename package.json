@@ -4,7 +4,8 @@
     "description": "A soundboard application",
     "main": "main.js",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "package": "electron-packager . MySoundboardApp --platform=win32 --arch=x64 --icon=icon.ico --out=dist --overwrite"
     },
     "author": "DonDeh",
     "license": "ISC",
@@ -13,5 +14,9 @@
         "fs": "^0.0.1-security",
         "path": "^0.12.7",
         "tone": "^15.0.4"
+    },
+    "devDependencies": {
+        "electron": "^13.1.7",
+        "electron-packager": "^17.1.2"
     }
 }

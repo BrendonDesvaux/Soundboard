@@ -215,8 +215,11 @@ renameConfirmButton.addEventListener('click', () => {
         renameInput.classList.add('hidden');
         renameConfirmButton.classList.add('hidden');
         currentFilePath = '';
-        soundListContainer.innerHTML = '';
-        loadSounds();
+        // Instead of reloading all sounds, update only the relevant UI elements
+        const listItem = document.querySelector(`.sound-list-item button[data-filepath="${currentFilePath}"]`);
+        if (listItem) {
+            listItem.textContent = `Add ${newName}`;
+        }
     }
 });
 
