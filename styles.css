@@ -21,11 +21,25 @@ body {
     flex-direction: column-reverse;
 }
 
+.soundContainer {
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+}
+
+.soundEffects {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 20vh;
+    border-top: 2px solid rgba(173, 216, 230, 0.474);
+}
+
 .soundboard {
     display: flex;
     flex-wrap: wrap;
     width: 80vw;
-    height: 100vh;
+    height: 80vh;
 }
 
 .soundboard button {
@@ -162,8 +176,8 @@ body {
     align-items: center;
     text-align: center;
     word-wrap: break-word;
-    width: 10%;
-    height: 10%;
+    width: auto;
+    height: 10vh;
 }
 
 .button:hover {

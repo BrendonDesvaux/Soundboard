@@ -16,7 +16,7 @@ function createWindow() {
     mainWindow.loadFile('index.html');
 
     // // Ouvrir les outils de développement automatiquement
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 }
 
 app.on('ready', createWindow);

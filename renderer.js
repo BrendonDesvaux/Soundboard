@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const soundboard = document.getElementById('soundboard');
+const soundEffects = document.getElementById('soundEffects');
 const fileInput = document.getElementById('fileInput');
 const chooseAndAddSoundButton = document.getElementById('chooseAndAddSound');
 const soundListContainer = document.getElementById('soundListContainer'); // New container for sound list
@@ -227,13 +228,13 @@ renameConfirmButton.addEventListener('click', () => {
 const reverbToggleButton = document.createElement('button');
 reverbToggleButton.textContent = 'Reverb off';
 reverbToggleButton.classList.add('button');
-soundboard.appendChild(reverbToggleButton);
+soundEffects.appendChild(reverbToggleButton);
 
 // Ajouter un bouton pour activer/désactiver l'écho
 const echoToggleButton = document.createElement('button');
 echoToggleButton.textContent = 'Echo off';
 echoToggleButton.classList.add('button');
-soundboard.appendChild(echoToggleButton);
+soundEffects.appendChild(echoToggleButton);
 
 let audioContext;
 let mediaStreamSource;
